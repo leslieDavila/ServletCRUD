@@ -2,6 +2,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,12 +13,37 @@ public class ModificarServlet extends HttpServlet {
     
    
     @Override
+    
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
       //  processRequest(request, response);
+        try{
+            
+            response.setContentType("text/html;charset=UTF-8");  
+        PrintWriter out=response.getWriter(); 
         
-        response.setContentType("text/html;charset=UTF-8");  
-        PrintWriter out=response.getWriter();  
+               //sesion activa
+      Cookie[] cks = request.getCookies();
+      if (cks != null) {
+         for (int i = 0; i < cks.length; i++) {
+            String name = cks[i].getName();
+            String value = cks[i].getValue();
+            if (name.equals("auth")) {
+               break; 
+            }
+            if (i == (cks.length - 1))
+            {
+               response.sendRedirect("index.jsp");
+               return; 
+            }
+            i++;
+         }
+      } else {
+         response.sendRedirect("index.jsp");
+         return; 
+      }
+        
         out.println("<h1>Modificar Alumno</h1>");  
         String  NControl=request.getParameter("NOCONTROL");  
         //int numeroC=Integer.parseInt(sid);  
@@ -36,8 +62,18 @@ public class ModificarServlet extends HttpServlet {
         out.print("</table>");  
         out.print("</form>");  
           
-        out.close();  
+        out.close();
+        
+         }catch(Exception exc){
+            System.out.println(exc);
+        }
     }  
+            
+            
+            
+            
+       
+        
         
     }
 

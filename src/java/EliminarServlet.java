@@ -5,8 +5,9 @@
  */
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,27 +18,40 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EliminarServlet extends HttpServlet {
 
-   
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
-         String NControl=request.getParameter("NOCONTROL");   
-        AlumnoDAO.delete(NControl);  
-        response.sendRedirect("ViewServlet"); 
-        
-    }
+        // processRequest(request, response);
+        try {
 
-   
+            //sesion activa
+            Cookie[] cks = request.getCookies();
+            if (cks != null) {
+                for (int i = 0; i < cks.length; i++) {
+                    String name = cks[i].getName();
+                    String value = cks[i].getValue();
+                    if (name.equals("auth")) {
+                        break;
+                    }
+                    if (i == (cks.length - 1)) {
+                        response.sendRedirect("login.jsp");
+                        return;
+                    }
+                    i++;
+                }
+            } else {
+                response.sendRedirect("login.jsp");
+                return;
+            }
+
+            String NControl = request.getParameter("NOCONTROL");
+            AlumnoDAO.delete(NControl);
+            response.sendRedirect("ViewServlet");
+
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+
+    }
 
 }

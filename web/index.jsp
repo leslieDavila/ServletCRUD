@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : 10-sep-2020, 21:31:53
+    Document   : login
+    Created on : 20-sep-2020, 17:23:18
     Author     : karen
 --%>
 
@@ -12,19 +12,16 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Añadir nuevo alumno</h1>  
-        <form action="GuardarServlet" method="post">  
-            <table>  
-                <tr><td>Numero Control:</td><td><input type="text" name="NOCONTROL"/></td></tr>  
-                <tr><td>Nombre:</td><td><input type="text" name="NOMBRE"/></td></tr>  
-                <tr><td>Curso:</td><td><input type="text" name="CURSO"/></td></tr>  
-                  <tr><td>Semestre:</td><td><input type="text" name="SEMESTRE"/></td></tr>  
-                <tr><td colspan="2"><input type="submit" value="Guardar"/></td></tr>  
-            </table>  
-        </form>  
+        <form action="LoginServlet" method="post">
+            <h1> Acceso al sistema Alumnos </h1>
+            Usuario : <input type="text" name="uname"><br><br>
+            Contraseña : <input type="password" name="pass"><br><br>
+            <input type="submit" value="Iniciar sesion">
+        </form>
+        
 
-        <br/>  
-        <a href="ViewServlet">Ver alumnos</a>  
-
-    </body>
 </html>
+
+
+
+
