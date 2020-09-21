@@ -11,10 +11,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author karen
+ * @author Leslie Karen Davila Gallegos
  */
 public class EliminarServlet extends HttpServlet {
 
@@ -25,23 +26,14 @@ public class EliminarServlet extends HttpServlet {
         try {
 
             //sesion activa
-            Cookie[] cks = request.getCookies();
-            if (cks != null) {
-                for (int i = 0; i < cks.length; i++) {
-                    String name = cks[i].getName();
-                    String value = cks[i].getValue();
-                    if (name.equals("auth")) {
-                        break;
-                    }
-                    if (i == (cks.length - 1)) {
-                        response.sendRedirect("login.jsp");
-                        return;
-                    }
-                    i++;
+              HttpSession session = request.getSession();
+            if (session != null) {
+                if (session.getAttribute("user") != null) {
+                    String name = (String) session.getAttribute("user");
+                    //out.print("Hello, " + name + "  Welcome to ur Profile");
+                } else {
+                    response.sendRedirect("index.jsp");
                 }
-            } else {
-                response.sendRedirect("login.jsp");
-                return;
             }
 
             String NControl = request.getParameter("NOCONTROL");

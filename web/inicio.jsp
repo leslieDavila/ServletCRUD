@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 10-sep-2020, 21:31:53
-    Author     : karen
+    Author     : Leslie Karen Davila Gallegos
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,25 +13,13 @@
     </head><
     <body>
         <%
-           //sesion activa
-      Cookie[] cks = request.getCookies();
-      if (cks != null) {
-         for (int i = 0; i < cks.length; i++) {
-            String name = cks[i].getName();
-            String value = cks[i].getValue();
-            if (name.equals("auth")) {
-               break; 
-            }
-            if (i == (cks.length - 1))
-            {
-               response.sendRedirect("index.jsp");
-               return; 
-            }
-            i++;
+      if (session != null) {
+         if (session.getAttribute("user") != null) {
+            String name = (String) session.getAttribute("user");
+            //out.print("Hello, " + name + "  Welcome to ur Profile");
+         } else {
+            response.sendRedirect("index.jsp");
          }
-      } else {
-         response.sendRedirect("index.jsp");
-         return; 
       }
    %>
         <h1>Añadir nuevo alumno</h1>  

@@ -1,7 +1,7 @@
 <%-- 
     Document   : login
     Created on : 20-sep-2020, 17:23:18
-    Author     : karen
+    Author     : Leslie Karen Davila Gallegos
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

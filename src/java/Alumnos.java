@@ -2,7 +2,7 @@
 
 /**
  *
- * @author karen
+ * @author Leslie Karen Davila Gallegos
  */
 public class Alumnos {
 
